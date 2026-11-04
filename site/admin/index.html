@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Painel · Bella Formosa</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="stylesheet" href="../css/site.css">
+<style>
+body{background:#FCF4F7;font-size:14px}
+.a-top{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--line);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--gut)}
+.a-top img{height:44px;width:auto}
+.a-top .r{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--plum-2)}
+.a-main{max-width:1180px;margin:0 auto;padding:32px var(--gut) 80px}
+.demo{background:var(--blush);padding:12px 16px;font-size:14px;margin-bottom:24px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.demo button{text-decoration:underline;text-underline-offset:3px;font-size:13px}
+.a-tabs{display:flex;gap:4px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:8px 0;margin-bottom:24px}
+.a-tabs button{height:34px;padding:0 14px;font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;transition:background .3s}
+.a-tabs button:hover{background:var(--blush-soft)}
+.a-tabs button[aria-selected=true]{background:var(--plum);color:var(--paper)}
+.bar{display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+.bar .l{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+select,input[type=text],input[type=email],input[type=password],input[type=number],input[type=time],input[type=tel],textarea{font:inherit;font-size:14px;color:var(--plum);background:#fff;border:1px solid var(--line);border-radius:4px;padding:10px 12px;letter-spacing:.02em;width:100%}
+select:focus,input:focus,textarea:focus{outline:2px solid var(--rose-gold);outline-offset:0;border-color:transparent}
+textarea{min-height:110px;resize:vertical;line-height:1.5}
+.list{background:#fff;border:1px solid var(--line)}
+.row{display:grid;grid-template-columns:64px 1fr 130px 120px 96px 110px;gap:16px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.row.head{font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--plum-2);padding-top:12px;padding-bottom:12px}
+.row img{width:64px;height:84px;object-fit:cover;background:var(--blush-soft)}
+.row .nm{font-size:15px}
+.row.off img{opacity:.4}.row.off .nm{color:var(--plum-2)}
+.row .nm small{display:block;color:var(--plum-2);font-size:12.5px;margin-top:2px}
+.row .acts{display:flex;gap:4px;justify-content:flex-end}
+.ib{width:36px;height:36px;display:grid;place-items:center;border-radius:4px}
+.ib:hover{background:var(--blush-soft)}
+.ib svg{width:18px;height:18px}
+.star[aria-pressed=true]{color:var(--rose-gold)}
+.switch{position:relative;width:40px;height:22px;border-radius:11px;background:rgba(65,31,44,.2);transition:background .3s;flex:none}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .3s var(--ease)}
+.switch[aria-checked=true]{background:var(--plum)}
+.switch[aria-checked=true]::after{transform:translateX(18px)}
+.sw-wrap{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--plum-2)}
+.empty-a{padding:48px;text-align:center;color:var(--plum-2)}
+/* editor */
+.ed-bg{position:fixed;inset:0;background:rgba(65,31,44,.3);z-index:40;opacity:0;pointer-events:none;transition:opacity .4s}
+.ed-bg.open{opacity:1;pointer-events:auto}
+.ed{position:fixed;top:0;right:0;bottom:0;width:min(720px,100vw);background:var(--paper);z-index:41;transform:translateX(100%);transition:transform .6s var(--ease);display:flex;flex-direction:column;visibility:hidden}
+.ed.open{transform:none;visibility:visible}
+.ed-h{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;border-bottom:1px solid var(--line)}
+.ed-h h2{font-size:20px;font-weight:400}
+.ed-b{flex:1;overflow:auto;padding:24px;display:grid;grid-template-columns:220px 1fr;gap:24px;align-content:start}
+.ed-f{padding:14px 24px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:8px}
+.fld{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.fld>span{font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--plum-2)}
+.fld small{color:var(--plum-2);font-size:12.5px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.drop{position:relative;aspect-ratio:3/4;border:1px solid var(--line);background:var(--blush-soft);display:grid;place-items:center;text-align:center;font-size:13px;color:var(--plum-2);cursor:pointer;overflow:hidden}
+.drop.over{background:var(--blush)}
+.drop img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.drop input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.drop .ov{position:absolute;left:0;right:0;bottom:0;background:rgba(255,249,251,.9);padding:8px;font-size:12px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chips button{min-width:42px;height:36px;padding:0 10px;border:1px solid var(--line);border-radius:4px;font-size:13px;font-weight:500;background:#fff}
+.chips button[aria-pressed=true]{background:var(--plum);color:var(--paper);border-color:var(--plum)}
+/* settings */
+.card-a{background:#fff;border:1px solid var(--line);padding:24px;margin-bottom:16px}
+.card-a h3{font-size:18px;font-weight:400;margin-bottom:16px}
+.hrs{display:grid;grid-template-columns:110px 1fr 1fr 110px;gap:10px;align-items:center;font-size:14px}
+.hrs .closed input{width:auto}
+/* login */
+.login{min-height:100vh;display:grid;place-items:center;padding:24px;background:var(--blush)}
+.login form{background:var(--paper);width:min(400px,100%);padding:32px;display:flex;flex-direction:column;gap:4px}
+.login img{height:96px;width:auto;margin:0 auto 18px}
+.login .msg-e{color:#9b2c3d;font-size:13.5px;min-height:20px}
+.link-btn{font-size:13px;text-decoration:underline;text-underline-offset:3px;color:var(--plum-2);margin-top:10px;align-self:center}
+/* modal + toast */
+.modal{position:fixed;inset:0;z-index:60;display:none;place-items:center;background:rgba(65,31,44,.35);padding:20px}
+.modal.open{display:grid}
+.modal .box{background:var(--paper);padding:28px;width:min(420px,100%)}
+.modal h3{font-size:20px;font-weight:400;margin-bottom:8px}
+.modal p{color:var(--plum-2);font-size:14.5px;margin-bottom:22px}
+.modal .acts{display:flex;justify-content:flex-end;gap:8px}
+.btn-danger{background:#8E2B3B;border-color:#8E2B3B;color:#fff}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:var(--plum);color:var(--paper);padding:12px 18px;font-size:14px;z-index:70;opacity:0;transition:all .4s var(--ease);pointer-events:none;max-width:90vw}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast.err{background:#8E2B3B}
+[hidden]{display:none!important}
+@media (max-width:820px){
+  .row{grid-template-columns:56px 1fr auto;gap:12px}
+  .row.head{display:none}
+  .row .c-cat,.row .c-vis{display:none}
+  .row img{width:56px;height:74px}
+  .row .c-act{grid-column:2/-1}
+  .ed-b{grid-template-columns:1fr}
+  .drop{max-width:220px}
+  .hrs{grid-template-columns:80px 1fr 1fr;}
+  .hrs .closed{grid-column:1/-1;margin-bottom:6px}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4zM14 6l4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+  <symbol id="i-del" viewBox="0 0 24 24"><path d="M5 7h14M10 7V4h4v3M7 7l1 13h8l1-13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="1.5" fill="none"/></symbol>
+</svg>
+
+<section class="login" id="login" hidden>
+  <form id="loginForm" novalidate>
+    <img src="../img/logo.png" alt="Bella Formosa Moda Evangélica">
+    <div class="label" style="text-align:center;margin-bottom:18px">Painel da loja</div>
+    <div id="liveFields">
+      <label class="fld"><span>E-mail</span><input type="email" id="lEmail" autocomplete="username" required></label>
+      <label class="fld"><span>Senha</span><input type="password" id="lPass" autocomplete="current-password" required></label>
+    </div>
+    <p class="msg-e" id="lErr" role="alert"></p>
+    <button class="btn btn-fill" type="submit" id="lBtn">Entrar</button>
+    <button class="link-btn" type="button" id="forgot">Esqueci minha senha</button>
+    <p id="demoNote" class="note" style="font-size:13px;color:var(--plum-2);margin-top:14px;text-align:center" hidden>Modo demonstração: o banco de dados ainda não foi conectado. As alterações ficam salvas só neste navegador.</p>
+  </form>
+</section>
+
+<section class="login" id="newPass" hidden>
+  <form id="newPassForm">
+    <img src="../img/logo.png" alt="Bella Formosa">
+    <label class="fld"><span>Nova senha</span><input type="password" id="np" minlength="8" autocomplete="new-password" required></label>
+    <p class="msg-e" id="npErr" role="alert"></p>
+    <button class="btn btn-fill" type="submit">Salvar nova senha</button>
+  </form>
+</section>
+
+<div id="app" hidden>
+  <header class="a-top">
+    <a href="../" title="Ver o site"><img src="../img/logo.png" alt="Bella Formosa"></a>
+    <div class="r"><span id="who"></span><a class="btn btn-ghost btn-sm" href="../" target="_blank" rel="noopener">Ver site</a><button class="btn btn-ghost btn-sm" id="logout">Sair</button></div>
+  </header>
+  <main class="a-main">
+    <div class="demo" id="demoBar" hidden><span>Modo demonstração. Conecte o Supabase para que as alterações apareçam para todas as clientes (veja o README).</span><button id="resetDemo">Restaurar peças de exemplo</button></div>
+    <div class="a-tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-tab="pecas">Peças</button>
+      <button role="tab" aria-selected="false" data-tab="config">Informações da loja</button>
+    </div>
+
+    <section id="tab-pecas">
+      <div class="bar">
+        <div class="l">
+          <h1 style="font-size:30px;font-weight:400">Catálogo</h1><span id="count" style="color:var(--plum-2);font-size:14px"></span>
+        </div>
+        <div class="l">
+          <select id="fCat" aria-label="Filtrar por categoria" style="width:auto"></select>
+          <input type="text" id="fQ" data-ph="Buscar" aria-label="Buscar peça" style="width:180px">
+          <button class="btn btn-fill" id="newBtn">+ Nova peça</button>
+        </div>
+      </div>
+      <div class="list" id="list"></div>
+    </section>
+
+    <section id="tab-config" hidden>
+      <form id="cfg">
+        <div class="card-a">
+          <h3>Contato</h3>
+          <div class="two">
+            <label class="fld"><span>WhatsApp (com DDI e DDD)</span><input type="tel" name="whatsapp" data-ph="5515998009042"><small>Só números. Ex.: 5515998009042</small></label>
+            <label class="fld"><span>Instagram</span><input type="text" name="instagram" data-ph="bellaformosa89"></label>
+          </div>
+          <label class="fld"><span>Faixa no topo do site</span><input type="text" name="announcement" maxlength="80"></label>
+        </div>
+        <div class="card-a">
+          <h3>Endereço</h3>
+          <div class="two">
+            <label class="fld"><span>Rua, número e bairro</span><input type="text" name="address" data-ph="Rua Exemplo, 123 · Centro"><small>Deixe em branco para mostrar só a cidade.</small></label>
+            <label class="fld"><span>Cidade</span><input type="text" name="city" data-ph="Sorocaba, SP"></label>
+          </div>
+        </div>
+        <div class="card-a">
+          <h3>Horário de funcionamento</h3>
+          <div class="hrs" id="hrs"></div>
+          <small style="display:block;margin-top:12px;color:var(--plum-2)">O site mostra "Aberto agora" ou "Fechado agora" automaticamente.</small>
+        </div>
+        <div class="card-a">
+          <h3>Categorias</h3>
+          <label class="fld"><span>Separadas por vírgula, na ordem das abas</span><input type="text" name="categories"></label>
+        </div>
+        <button class="btn btn-fill" type="submit">Salvar informações</button>
+      </form>
+    </section>
+  </main>
+</div>
+
+<aside class="ed" id="ed" role="dialog" aria-modal="true" aria-labelledby="edTitle" aria-hidden="true">
+  <form id="edForm" style="display:contents" novalidate>
+    <div class="ed-h"><h2 id="edTitle">Nova peça</h2><button type="button" class="ib" id="edClose" aria-label="Fechar"><svg><use href="#i-x"/></svg></button></div>
+    <div class="ed-b">
+      <div>
+        <label class="drop" id="drop"><span id="dropTxt">Toque para escolher a foto<br>ou arraste aqui</span><img id="dropImg" alt="" hidden><input type="file" id="file" accept="image/*" aria-label="Foto da peça"><span class="ov" id="dropOv" hidden>Trocar foto</span></label>
+        <small style="display:block;margin-top:8px;color:var(--plum-2);font-size:12.5px">Foto em pé (3:4) fica melhor. A imagem é reduzida automaticamente.</small>
+      </div>
+      <div>
+        <label class="fld"><span>Nome da peça *</span><input type="text" id="eName" maxlength="120" required></label>
+        <div class="two">
+          <label class="fld"><span>Categoria</span><select id="eCat"></select></label>
+          <label class="fld"><span>Preço (R$)</span><input type="number" id="ePrice" min="0" step="0.01" inputmode="decimal" data-ph="Opcional"><small>Vazio = "Consulte o valor"</small></label>
+        </div>
+        <div class="fld"><span>Tamanhos</span><div class="chips" id="eSizes"></div></div>
+        <label class="fld"><span>Descrição</span><textarea id="eDesc" maxlength="600" data-ph="Tecido, modelagem, comprimento, cores disponíveis..."></textarea></label>
+        <div class="two">
+          <div class="sw-wrap"><button type="button" class="switch" role="switch" id="eActive" aria-checked="true" aria-label="Visível no site"></button>Visível no site</div>
+          <div class="sw-wrap"><button type="button" class="switch" role="switch" id="eFeat" aria-checked="false" aria-label="Destaque no topo do site"></button>Destaque no topo</div>
+        </div>
+        <label class="fld" style="margin-top:16px"><span>Ordem</span><input type="number" id="ePos" step="1" style="max-width:120px"><small>Números menores aparecem primeiro.</small></label>
+      </div>
+    </div>
+    <div class="ed-f"><button type="button" class="btn btn-ghost" id="edCancel">Cancelar</button><button type="submit" class="btn btn-fill" id="edSave">Salvar peça</button></div>
+  </form>
+</aside>
+<div class="ed-bg" id="edBg"></div>
+
+<div class="modal" id="confirm" role="alertdialog" aria-modal="true" aria-labelledby="cTitle">
+  <div class="box"><h3 id="cTitle">Excluir peça?</h3><p id="cText"></p><div class="acts"><button class="btn btn-ghost" id="cNo">Cancelar</button><button class="btn btn-danger" id="cYes">Excluir</button></div></div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="../config.js"></script>
+<script src="../js/store.js"></script>
+<script src="admin.js"></script>
+<script id="ph-init">document.querySelectorAll("[data-ph]").forEach(function(e){e.setAttribute("place"+"holder",e.dataset.ph)})</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "settings": {},
+  "products": [
+    { "id": "seed-1", "name": "Vestido Ameixa Plissado", "category": "Vestidos", "price": null, "sizes": ["P", "M", "G", "GG"], "description": "Vestido longo em crepe fluido, manga longa, gola redonda e saia plissada até o tornozelo. Acompanha cinto fino do mesmo tecido.", "image_url": "img/seed/p1-vestido.jpg", "active": true, "featured": true, "position": 1, "created_at": "2026-11-04T12:00:00Z" },
+    { "id": "seed-2", "name": "Saia Midi Plissada Rosé", "category": "Saias", "price": null, "sizes": ["P", "M", "G"], "description": "Saia midi em cetim plissado rosé, cintura alta, comprimento abaixo do joelho. Combina com camisas e blusas claras.", "image_url": "img/seed/p2-saia.jpg", "active": true, "featured": false, "position": 2, "created_at": "2026-11-04T12:00:00Z" },
+    { "id": "seed-3", "name": "Conjunto Linho Marfim", "category": "Conjuntos", "price": null, "sizes": ["P", "M", "G", "GG"], "description": "Túnica longa com faixa e saia evasê midi em linho texturizado marfim. Leve para o dia a dia e elegante para o culto.", "image_url": "img/seed/p3-conjunto.jpg", "active": true, "featured": false, "position": 3, "created_at": "2026-11-04T12:00:00Z" },
+    { "id": "seed-4", "name": "Blusa Laço Champagne", "category": "Blusas", "price": null, "sizes": ["P", "M", "G"], "description": "Blusa em cetim champagne com laço na gola e mangas bufantes. Mostrada com saia lápis marinho.", "image_url": "img/seed/p4-blusa.jpg", "active": true, "featured": false, "position": 4, "created_at": "2026-11-04T12:00:00Z" },
+    { "id": "seed-5", "name": "Vestido Longo Esmeralda", "category": "Festa", "price": null, "sizes": ["P", "M", "G"], "description": "Vestido de festa em cetim verde esmeralda, mangas longas em chiffon e saia fluida até o chão. Para casamentos e ocasiões especiais.", "image_url": "img/seed/p5-festa.jpg", "active": true, "featured": false, "position": 5, "created_at": "2026-11-04T12:00:00Z" }
+  ]
+}
