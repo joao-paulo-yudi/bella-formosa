@@ -63,8 +63,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;letter
 .glass .streak.s2{width:9vw;opacity:.7}
 .glass-logo{position:absolute;top:9%;width:clamp(170px,19vw,300px);opacity:.82;will-change:transform;filter:drop-shadow(0 0 0.5px rgba(255,255,255,.4))}
 .beat{position:absolute}
-.beat-a{left:var(--gut);bottom:12%;max-width:min(560px,44vw)}
-.beat-a::before{content:"";position:absolute;z-index:-1;inset:-30% -30% -26% -40%;background:radial-gradient(closest-side,rgba(255,249,251,.78),rgba(255,249,251,.5) 55%,rgba(255,249,251,0));pointer-events:none}
+.beat-a{isolation:isolate;left:var(--gut);bottom:12%;max-width:min(560px,44vw)}
+.beat-a::before{content:"";position:absolute;z-index:-1;inset:-30% -30% -26% -40%;background:radial-gradient(closest-side,rgba(255,249,251,.92),rgba(255,249,251,.74) 60%,rgba(255,249,251,0));pointer-events:none}
 .beat-a h1{font-size:clamp(36px,4.6vw,68px);font-weight:400;line-height:1.06;letter-spacing:-.005em;margin:18px 0 18px}
 .beat-a p{font-size:17px;line-height:1.5;max-width:40ch;color:var(--plum)}
 .beat-a .row{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
