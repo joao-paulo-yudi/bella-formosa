@@ -201,52 +201,22 @@
   $$('#drawer a').forEach(a => a.addEventListener('click', closeDrawer));
 
   /* ---------- hero: the boutique window ---------- */
-  const hero = $('#hero'), stage = $('#stage'), pano = $('#pano');
-  const beatA = $('#beatA'), beatB = $('#beatB'), beatC = $('#beatC');
+  const stage = $('#stage'), pano = $('#pano');
   const st1 = $('#st1'), st2 = $('#st2');
-  const bars = $$('.hero-bars b');
-  const AR = 3168 / 1344, SUBJECT = 0.835;
-  let L = { W: 0, H: 0, h: 0, w: 0, y: 0, end: 0, mobile: false };
-  let hp = 0, hpT = 0;
-  function heroLayout() {
-    const W = stage.clientWidth, H = stage.clientHeight, mobile = W <= 900;
+  const AR = 3168 / 1344;
+  function heroLayout() { // static framing: fill the stage, left edge of the panorama
+    const W = stage.clientWidth, H = stage.clientHeight;
     let h = H * 1.02, w = h * AR;
     if (w < W * 1.35) { w = W * 1.35; h = w / AR; }
-    const end = clamp(SUBJECT * w - W * (mobile ? 0.5 : 0.7), 0, w - W);
-    L = { W, H, h, w, y: (H - h) * 0.55, end, mobile };
     pano.style.height = h + 'px'; pano.style.width = w + 'px';
+    pano.style.transform = `translate3d(0,${(H - h) * 0.55}px,0)`;
+    st1.style.transform = `translate3d(${W * 0.42}px,0,0) skewX(-8deg)`;
+    st2.style.transform = `translate3d(${W * 0.86}px,0,0) skewX(-8deg)`;
   }
-  function heroMeasure() {
-    const r = hero.getBoundingClientRect(), span = r.height - stage.clientHeight;
-    return span <= 0 ? 0 : clamp(-r.top / span);
-  }
-  function env(p, a, b, c, d) { // in a..b, hold, out c..d
-    if (p <= a || p >= d) return 0; if (p < b) return (p - a) / (b - a); if (p <= c) return 1; return 1 - (p - c) / (d - c);
-  }
-  function heroRender(p) {
-    const e = smooth(p), tx = L.end * e;
-    pano.style.transform = `translate3d(${-tx}px,${L.y}px,0)`;
-    st1.style.transform = `translate3d(${L.W * 0.42 - tx * 2.3}px,0,0) skewX(-8deg)`;
-    st2.style.transform = `translate3d(${L.W * 0.86 - tx * 2.3}px,0,0) skewX(-8deg)`;
-    const a = p < 0.04 ? 1 : 1 - clamp((p - 0.04) / 0.16);
-    beatA.style.opacity = a; beatA.style.transform = `translate3d(0,${-p * 90}px,0)`; beatA.style.visibility = a < 0.02 ? 'hidden' : 'visible';
-    const b = env(p, 0.3, 0.4, 0.56, 0.66);
-    beatB.style.opacity = b; beatB.style.transform = `translate3d(-50%,${(1 - b) * 16}px,0)`;
-    const c = clamp((p - 0.8) / 0.14);
-    beatC.style.opacity = c; beatC.style.transform = `translate3d(0,${(1 - c) * 24}px,0)`;
-    beatC.style.visibility = c < 0.02 ? 'hidden' : 'visible';
-    bars.forEach((el, i) => { el.style.transform = `scaleX(${clamp((p - i / 3) * 3)})`; });
-  }
-  tasks.add(() => {
-    hpT = heroMeasure();
-    hp += (hpT - hp) * (reduced ? 1 : 0.12);
-    if (Math.abs(hpT - hp) < 0.0004) hp = hpT;
-    heroRender(hp);
-  });
 
   function applyFeatured() {
     featured = products.find(p => p.featured) || products[0];
-    if (!featured) { beatC.remove(); return; }
+    if (!featured) { $('#beatC').remove(); return; }
     $('#featImg').src = S.img(featured.image_url); $('#featImg').alt = featured.name;
     $('#featName').textContent = featured.name;
     const sz = featured.sizes || [];
@@ -372,9 +342,7 @@
     if (JUMP !== null) {
       scrollTo(0, +JUMP || 0);
       $$('main > section').forEach(s => { const r = s.getBoundingClientRect(); if (r.top < innerHeight && r.bottom > 0) s.classList.add('in'); });
-      $$('.card').forEach(c => { const r = c.getBoundingClientRect(); if (r.top < innerHeight) c.classList.add('shown'); });
-      hp = hpT = heroMeasure(); heroRender(hp);
-    }
+      $$('.card').forEach(c => { const r = c.getBoundingClientRect(); if (r.top < innerHeight) c.classList.add('shown'); });    }
     await (document.fonts ? document.fonts.ready.catch(() => {}) : 0);
     requestAnimationFrame(() => requestAnimationFrame(() => { window.__ready = true; }));
   }
